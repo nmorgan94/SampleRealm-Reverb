@@ -1,4 +1,4 @@
-# Reverb Plugin
+# SampleRealm: Reverb
 
 A professional audio reverb plugin built with JUCE framework, featuring a custom-designed user interface with rotary controls.
 
@@ -8,36 +8,53 @@ A professional audio reverb plugin built with JUCE framework, featuring a custom
 - **Cross-platform support**: VST3, AU, and Standalone formats
 - **Universal binary**: Supports both Intel (x86_64) and Apple Silicon (arm64) architectures
 
-## Requirements
+## Build Requirements
 
-- **CMake** 3.25 or higher
-- **C++23** compatible compiler
-- **macOS** 10.13 or higher
+- CMake 3.25+
+- A C++23-capable compiler
+- Git
+- macOS development environment for AU/Standalone/VST3 builds
 
-## Building the Plugin
 
-### 1. Configure the Project
+## Building
+
+### Debug
 
 ```bash
 cmake --preset debug
+cmake --build --preset debug
 ```
 
-For release builds:
+### Release
+
 ```bash
 cmake --preset release
+cmake --build --preset release
 ```
 
-### 2. Build
+## Debugging in Xcode
 
-Debug build:
+To debug the plugin in Xcode with an executable:
+
+### 1. Generate Xcode Project
+
 ```bash
-cmake --build build-debug --config Debug
+cmake -B build-xcode -G Xcode
+open build-xcode/Reverb.xcodeproj
 ```
 
-Release build:
-```bash
-cmake --build build-release --config Release
-```
+### 2. Configure Debugging
+
+1. Select your plugin target from the scheme dropdown
+2. Go to **Product → Scheme → Edit Scheme** 
+3. Click **Run** on the left sidebar
+4. Under **Executable**, choose **Other** and navigate to executable.
+
+### 3. Build and Run
+
+1. Press **Cmd+B** to build the plugin
+2. Press **Cmd+R** to run with AudioPluginHost
+4. Load your plugin in AudioPluginHost
 
 ## Using the Plugin
 
@@ -45,20 +62,7 @@ cmake --build build-release --config Release
 
 Load the plugin in your preferred DAW (Logic Pro, Ableton Live, Reaper, etc.) from the standard plugin locations.
 
-## Development
 
-### Project Structure
 
-```
-Reverb/
-├── Source/
-│   ├── PluginProcessor.cpp/h    # Audio processing logic
-│   ├── PluginEditor.cpp/h       # User interface
-│   └── ui/
-│       └── CustomLookAndFeel.h  # Custom UI styling
-├── Assets/                      # Binary assets (images, fonts, etc.)
-├── CMakeLists.txt               # Build configuration
-└── CMakePresets.json            # Build presets
-```
 
 
